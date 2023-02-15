@@ -1,15 +1,17 @@
 version: 2.1
 
+  
+
+
 jobs:
   build:
     docker:
       - image: 'node:latest'
     steps:
       - checkout
-      - sonarcloud/scan
-
-orbs:
-  sonarcloud: sonarsource/sonarcloud@1.0.3
+      - run: | 
+         echo "Running  the scanning ..."   if [[ $CIRCLE_TAG =~ ^prod|preprod$ ]]; then  
+         bash sonar_run.sh; fi;
 
 workflows:
   main:
